@@ -1,15 +1,15 @@
 import { Box, Typography } from "@material-ui/core";
 
 export const Info = () => {
-  const nTareasPendientes = 3;
+  const nPendingToDos = 3;
   return (
-    <Box py={2}>
+    <Box p={2}>
       <Typography variant="body1">
-        {nTareasPendientes
-          ? `Tienes ${nTareasPendientes} tarea${
-              nTareasPendientes !== 1 ? "s" : ""
-            } pendiente${nTareasPendientes !== 1 ? "s" : ""}`
-          : "No tienes tareas pendientes"}
+        {nPendingToDos
+          ? `You have ${nPendingToDos} pending ToDo${
+              nPendingToDos !== 1 ? "s" : ""
+            }`
+          : "You don't have pending ToDos!"}
       </Typography>
     </Box>
   );

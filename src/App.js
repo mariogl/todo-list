@@ -11,6 +11,7 @@ import { PageCreateToDo } from "./pages/PageCreateToDo";
 import { PageEditToDo } from "./pages/PageEditToDo";
 import { PageList } from "./pages/PageList";
 import { PageNotFound } from "./pages/PageNotFound";
+import { routePaths } from "./router/paths";
 
 function App() {
   return (
@@ -19,17 +20,17 @@ function App() {
         <CssBaseline />
         <Header />
         <Switch>
-          <Route path="/list" exact>
+          <Route path={routePaths.list} exact>
             <PageList />
           </Route>
-          <Route path="/new-todo" exact>
+          <Route path={routePaths.createToDo} exact>
             <PageCreateToDo />
           </Route>
-          <Route path="/edit-todo/:id" exact>
+          <Route path={routePaths.editToDo} exact>
             <PageEditToDo />
           </Route>
           <Route path="/" exact>
-            <Redirect to="/list" />
+            <Redirect to={routePaths.list} />
           </Route>
           <Route>
             <PageNotFound />

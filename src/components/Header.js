@@ -37,7 +37,7 @@ export const Header = () => {
   return (
     <AppBar color="secondary" position="sticky">
       <Toolbar disableGutters>
-        <Container maxWidth="sm" disableGutters>
+        <Container maxWidth="sm">
           <Box
             display="flex"
             justifyContent="space-between"

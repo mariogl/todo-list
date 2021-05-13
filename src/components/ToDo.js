@@ -16,7 +16,7 @@ export const ToDo = (props) => {
   const history = useHistory();
   const goToEditPage = () => history.push(`${routePaths.editToDo}/${id}`);
   return (
-    <ListItem button disableGutters>
+    <ListItem button>
       <ListItemAvatar>
         <Avatar>
           <DoneIcon />

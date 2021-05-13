@@ -8,7 +8,9 @@ import {
 import DoneIcon from "@material-ui/icons/Done";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useHistory } from "react-router";
+import PropTypes from "prop-types";
 import { routePaths } from "../router/paths";
+import { toDoPropsSchema } from "../schema/todo";
 
 const useStyles = makeStyles({
   priority1: {
@@ -44,4 +46,8 @@ export const ToDo = (props) => {
       </ListItemAvatar>
     </ListItem>
   );
+};
+
+ToDo.propTypes = {
+  toDo: PropTypes.shape(toDoPropsSchema).isRequired,
 };

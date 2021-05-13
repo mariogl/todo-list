@@ -1,31 +1,67 @@
 import {
   AppBar,
   Box,
+  Container,
+  IconButton,
+  makeStyles,
   Toolbar,
   Typography,
-  withStyles,
 } from "@material-ui/core";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import { useMemo } from "react";
+import { useHistory, useLocation } from "react-router";
+import { routePaths } from "../router/paths";
 
-const Heading = withStyles({
-  root: {
+const useStyles = makeStyles((theme) => ({
+  appTitle: {
     fontFamily: "Montserrat, sans-serif",
   },
-})(Typography);
+  buttonContrast: {
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
+  },
+}));
 
 export const Header = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const classes = useStyles();
+  const isListPage = useMemo(
+    () => location.pathname === routePaths.list,
+    [location]
+  );
+  const goToListPage = () => {
+    history.push(routePaths.list);
+  };
   return (
-    <AppBar color="secondary">
-      <Toolbar>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          width={1}
-        >
-          <Heading component="h1" variant="h5">
-            ToDo List
-          </Heading>
-        </Box>
+    <AppBar color="secondary" position="sticky">
+      <Toolbar disableGutters>
+        <Container maxWidth="sm" disableGutters>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            width={1}
+          >
+            <Typography
+              className={classes.appTitle}
+              component="h1"
+              variant="h5"
+            >
+              ToDo List
+            </Typography>
+            {!isListPage && (
+              <IconButton
+                aria-label="back to list"
+                className={classes.buttonContrast}
+                onClick={goToListPage}
+              >
+                <KeyboardBackspaceIcon htmlColor="#fff" />
+              </IconButton>
+            )}
+          </Box>
+        </Container>
       </Toolbar>
     </AppBar>
   );

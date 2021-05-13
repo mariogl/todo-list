@@ -1,4 +1,4 @@
-import { CssBaseline } from "@material-ui/core";
+import { Container, CssBaseline } from "@material-ui/core";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -11,6 +11,7 @@ import { PageCreateToDo } from "./pages/PageCreateToDo";
 import { PageEditToDo } from "./pages/PageEditToDo";
 import { PageList } from "./pages/PageList";
 import { PageNotFound } from "./pages/PageNotFound";
+import { routePaths } from "./router/paths";
 
 function App() {
   return (
@@ -18,23 +19,25 @@ function App() {
       <ToDosThemeProvider>
         <CssBaseline />
         <Header />
-        <Switch>
-          <Route path="/list" exact>
-            <PageList />
-          </Route>
-          <Route path="/new-todo" exact>
-            <PageCreateToDo />
-          </Route>
-          <Route path="/edit-todo/:id" exact>
-            <PageEditToDo />
-          </Route>
-          <Route path="/" exact>
-            <Redirect to="/list" />
-          </Route>
-          <Route>
-            <PageNotFound />
-          </Route>
-        </Switch>
+        <Container maxWidth="sm" disableGutters>
+          <Switch>
+            <Route path={routePaths.list} exact>
+              <PageList />
+            </Route>
+            <Route path={routePaths.createToDo} exact>
+              <PageCreateToDo />
+            </Route>
+            <Route path={routePaths.editToDo} exact>
+              <PageEditToDo />
+            </Route>
+            <Route path="/" exact>
+              <Redirect to={routePaths.list} />
+            </Route>
+            <Route>
+              <PageNotFound />
+            </Route>
+          </Switch>
+        </Container>
       </ToDosThemeProvider>
     </Router>
   );

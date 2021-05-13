@@ -1,6 +1,7 @@
 import {
   AppBar,
   Box,
+  Container,
   IconButton,
   makeStyles,
   Toolbar,
@@ -34,27 +35,33 @@ export const Header = () => {
     history.push(routePaths.list);
   };
   return (
-    <AppBar color="secondary">
-      <Toolbar>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          width={1}
-        >
-          <Typography className={classes.appTitle} component="h1" variant="h5">
-            ToDo List
-          </Typography>
-          {!isListPage && (
-            <IconButton
-              aria-label="back to list"
-              className={classes.buttonContrast}
-              onClick={goToListPage}
+    <AppBar color="secondary" position="sticky">
+      <Toolbar disableGutters>
+        <Container maxWidth="sm" disableGutters>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            width={1}
+          >
+            <Typography
+              className={classes.appTitle}
+              component="h1"
+              variant="h5"
             >
-              <KeyboardBackspaceIcon htmlColor="#fff" />
-            </IconButton>
-          )}
-        </Box>
+              ToDo List
+            </Typography>
+            {!isListPage && (
+              <IconButton
+                aria-label="back to list"
+                className={classes.buttonContrast}
+                onClick={goToListPage}
+              >
+                <KeyboardBackspaceIcon htmlColor="#fff" />
+              </IconButton>
+            )}
+          </Box>
+        </Container>
       </Toolbar>
     </AppBar>
   );

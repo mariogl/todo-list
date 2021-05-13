@@ -6,11 +6,15 @@ import {
 } from "@material-ui/core";
 import DoneIcon from "@material-ui/icons/Done";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { useHistory } from "react-router";
+import { routePaths } from "../router/paths";
 
 export const ToDo = (props) => {
   const {
-    toDo: { description },
+    toDo: { id, description },
   } = props;
+  const history = useHistory();
+  const goToEditPage = () => history.push(`${routePaths.editToDo}/${id}`);
   return (
     <ListItem button disableGutters>
       <ListItemAvatar>
@@ -18,7 +22,7 @@ export const ToDo = (props) => {
           <DoneIcon />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText>{description}</ListItemText>
+      <ListItemText onClick={goToEditPage}>{description}</ListItemText>
       <ListItemAvatar>
         <Avatar>
           <DeleteIcon />

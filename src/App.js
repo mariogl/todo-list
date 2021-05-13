@@ -27,7 +27,7 @@ function App() {
             <Route path={routePaths.createToDo} exact>
               <PageCreateToDo />
             </Route>
-            <Route path={routePaths.editToDo} exact>
+            <Route path={`${routePaths.editToDo}/:id`} exact>
               <PageEditToDo />
             </Route>
             <Route path="/" exact>

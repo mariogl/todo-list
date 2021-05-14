@@ -1,7 +1,9 @@
 import { Box, Typography } from "@material-ui/core";
+import { useContext } from "react";
+import { ToDosContext } from "../contexts/ToDosContext";
 
 export const Info = () => {
-  const nPendingToDos = 3;
+  const { nPendingToDos } = useContext(ToDosContext);
   return (
     <Box p={2}>
       <Typography variant="body1">

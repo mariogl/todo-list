@@ -32,7 +32,7 @@ export const ToDo = (props) => {
   const history = useHistory();
   const goToEditPage = () => history.push(`${routePaths.editToDo}/${id}`);
   return (
-    <ListItem className={classes[`priority${priority}`]} button>
+    <ListItem className={classes[`priority${priority}`]} component="li" button>
       <ListItemAvatar>
         <Avatar>
           <DoneIcon />

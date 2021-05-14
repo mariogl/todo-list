@@ -21,9 +21,12 @@ const toDos = [
   },
 ];
 
+const nPendingToDos = toDos.filter((toDo) => !toDo.done).length;
 export const ToDosContextProvider = (props) => {
   const { children } = props;
   return (
-    <ToDosContext.Provider value={{ toDos }}>{children}</ToDosContext.Provider>
+    <ToDosContext.Provider value={{ toDos, nPendingToDos }}>
+      {children}
+    </ToDosContext.Provider>
   );
 };

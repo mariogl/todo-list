@@ -1,6 +1,8 @@
+import { useReducer } from "react";
+import { toDosReducer } from "../reducers/toDosReducer";
 import { ToDosContext } from "./ToDosContext";
 
-const toDos = [
+const initialTodos = [
   {
     id: 1,
     description: "Call John",
@@ -21,11 +23,12 @@ const toDos = [
   },
 ];
 
-const nPendingToDos = toDos.filter((toDo) => !toDo.done).length;
+const nPendingToDos = initialTodos.filter((toDo) => !toDo.done).length;
 export const ToDosContextProvider = (props) => {
   const { children } = props;
+  const [toDos, dispatch] = useReducer(toDosReducer, initialTodos);
   return (
-    <ToDosContext.Provider value={{ toDos, nPendingToDos }}>
+    <ToDosContext.Provider value={{ toDos, nPendingToDos, dispatch }}>
       {children}
     </ToDosContext.Provider>
   );

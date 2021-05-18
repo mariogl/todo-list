@@ -1,3 +1,5 @@
+import { FormToDo } from "../components/FormToDo";
+
 export const PageCreateToDo = () => {
-  return <p>Page create ToDo</p>;
+  return <FormToDo />;
 };

@@ -18,4 +18,8 @@ export const toDosActions = {
     type: toDosActionTypes.modify,
     payload: toDo,
   }),
+  remove: (idToDo) => ({
+    type: toDosActionTypes.remove,
+    payload: idToDo,
+  }),
 };

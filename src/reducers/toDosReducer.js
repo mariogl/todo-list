@@ -26,6 +26,8 @@ export const toDosReducer = (toDos, action) => {
       return toDos.map((toDo) =>
         toDo.id === action.payload ? { ...toDo, done: !toDo.done } : toDo
       );
+    case toDosActionTypes.remove:
+      return toDos.filter((tarea) => tarea.id !== action.payload);
     default:
       return toDos;
   }

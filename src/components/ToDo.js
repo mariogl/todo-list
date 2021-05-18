@@ -30,6 +30,7 @@ const useStyles = makeStyles({
 export const ToDo = (props) => {
   const {
     toDo: { id, description, priority, done },
+    openConfirm,
     toggleToDo,
   } = props;
   const classes = useStyles();
@@ -37,6 +38,10 @@ export const ToDo = (props) => {
   const goToEditPage = () => history.push(`${routePaths.editToDo}/${id}`);
   const onToggleToDo = () => {
     toggleToDo(id);
+  };
+  const onOpenConfirm = (e) => {
+    e.stopPropagation();
+    openConfirm(id);
   };
   return (
     <ListItem className={classes[`priority${priority}`]} component="li" button>
@@ -49,7 +54,7 @@ export const ToDo = (props) => {
         {description}
       </ListItemText>
       <ListItemAvatar>
-        <Avatar>
+        <Avatar onClick={onOpenConfirm}>
           <DeleteIcon />
         </Avatar>
       </ListItemAvatar>
@@ -59,5 +64,6 @@ export const ToDo = (props) => {
 
 ToDo.propTypes = {
   toDo: PropTypes.shape(toDoPropsSchema).isRequired,
+  openConfirm: PropTypes.func.isRequired,
   toggleToDo: PropTypes.func.isRequired,
 };

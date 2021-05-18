@@ -12,6 +12,16 @@ export const toDosReducer = (toDos, action) => {
           done: false,
         },
       ];
+    case toDosActionTypes.modify:
+      return toDos.map((toDo) =>
+        toDo.id === action.payload.id
+          ? {
+              ...toDo,
+              description: action.payload.description,
+              priority: action.payload.priority,
+            }
+          : toDo
+      );
     case toDosActionTypes.toggle:
       return toDos.map((toDo) =>
         toDo.id === action.payload ? { ...toDo, done: !toDo.done } : toDo

@@ -14,4 +14,8 @@ export const toDosActions = {
     type: toDosActionTypes.add,
     payload: toDo,
   }),
+  modify: (toDo) => ({
+    type: toDosActionTypes.modify,
+    payload: toDo,
+  }),
 };

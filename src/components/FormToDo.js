@@ -29,7 +29,7 @@ export const FormToDo = (props) => {
 
   const submitToDo = ({ description, priority }) => {
     if (toDo) {
-      console.log("Modify");
+      dispatch(toDosActions.modify({ id: toDo.id, description, priority }));
     } else {
       dispatch(toDosActions.add({ description, priority }));
     }
@@ -103,5 +103,5 @@ export const FormToDo = (props) => {
 };
 
 FormToDo.propTypes = {
-  tarea: PropTypes.shape(toDoPropsSchema),
+  toDo: PropTypes.shape(toDoPropsSchema),
 };

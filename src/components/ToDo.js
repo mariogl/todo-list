@@ -22,23 +22,32 @@ const useStyles = makeStyles({
   priority3: {
     backgroundColor: "green",
   },
+  done: {
+    textDecoration: "line-through",
+  },
 });
 
 export const ToDo = (props) => {
   const {
-    toDo: { id, description, priority },
+    toDo: { id, description, priority, done },
+    toggleToDo,
   } = props;
   const classes = useStyles();
   const history = useHistory();
   const goToEditPage = () => history.push(`${routePaths.editToDo}/${id}`);
+  const onToggleToDo = () => {
+    toggleToDo(id);
+  };
   return (
     <ListItem className={classes[`priority${priority}`]} component="li" button>
       <ListItemAvatar>
-        <Avatar>
+        <Avatar aria-label="Toggle ToDo" onClick={onToggleToDo}>
           <DoneIcon />
         </Avatar>
       </ListItemAvatar>
-      <ListItemText onClick={goToEditPage}>{description}</ListItemText>
+      <ListItemText className={done ? classes.done : ""} onClick={goToEditPage}>
+        {description}
+      </ListItemText>
       <ListItemAvatar>
         <Avatar>
           <DeleteIcon />
@@ -50,4 +59,5 @@ export const ToDo = (props) => {
 
 ToDo.propTypes = {
   toDo: PropTypes.shape(toDoPropsSchema).isRequired,
+  toggleToDo: PropTypes.func.isRequired,
 };

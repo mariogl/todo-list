@@ -11,27 +11,33 @@ import PropTypes from "prop-types";
 import * as yup from "yup";
 import { toDoPropsSchema } from "../schema/todo";
 import { routePaths } from "../router/paths";
+import { useContext } from "react";
+import { ToDosContext } from "../contexts/ToDosContext";
+import { toDosActions } from "../reducers/actions/todos";
 
 const validationSchema = yup.object({
-  name: yup.string().required("Don't forget to type the task name"),
+  description: yup
+    .string()
+    .required("Don't forget to enter the task description"),
   priority: yup.number().min(1).max(3),
 });
 
 export const FormToDo = (props) => {
   const { toDo } = props;
+  const { dispatch } = useContext(ToDosContext);
   const history = useHistory();
 
-  const submitToDo = ({ name, priority }) => {
+  const submitToDo = ({ description, priority }) => {
     if (toDo) {
       console.log("Modify");
     } else {
-      console.log("Create");
+      dispatch(toDosActions.add({ description, priority }));
     }
     history.push(routePaths.list);
   };
 
   const initialValues = {
-    name: toDo ? toDo.name : "",
+    description: toDo ? toDo.description : "",
     priority: toDo ? toDo.priority : 2,
   };
 
@@ -52,14 +58,16 @@ export const FormToDo = (props) => {
         <form noValidate autoComplete="off" onSubmit={formik.handleSubmit}>
           <Box mb={4}>
             <TextField
-              id="name"
+              id="description"
               label="What do you need to do?"
-              value={formik.values.name}
+              value={formik.values.description}
               fullWidth
               required
               onChange={formik.handleChange}
-              error={formik.touched.name && !!formik.errors.name}
-              helperText={formik.touched.name && formik.errors.name}
+              error={formik.touched.description && !!formik.errors.description}
+              helperText={
+                formik.touched.description && formik.errors.description
+              }
             />
           </Box>
           <Box mb={4}>

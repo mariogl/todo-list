@@ -6,6 +6,7 @@ import { ToDo } from "./ToDo";
 
 export const ToDosList = () => {
   const { toDos, dispatch } = useContext(ToDosContext);
+  console.log(toDos);
   const toggleToDo = useCallback(
     (idToDo) => {
       dispatch(toDosActions.toggle(idToDo));

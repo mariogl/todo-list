@@ -1,14 +1,21 @@
 import { List } from "@material-ui/core";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { ToDosContext } from "../contexts/ToDosContext";
+import { toDosActions } from "../reducers/actions/todos";
 import { ToDo } from "./ToDo";
 
 export const ToDosList = () => {
-  const { toDos } = useContext(ToDosContext);
+  const { toDos, dispatch } = useContext(ToDosContext);
+  const toggleToDo = useCallback(
+    (idToDo) => {
+      dispatch(toDosActions.toggle(idToDo));
+    },
+    [dispatch]
+  );
   return (
     <List>
       {toDos.map((toDo) => (
-        <ToDo key={toDo.id} toDo={toDo} />
+        <ToDo key={toDo.id} toDo={toDo} toggleToDo={toggleToDo} />
       ))}
     </List>
   );

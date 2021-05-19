@@ -7,7 +7,7 @@ describe("Info component", () => {
     it("should show the number of pending tasks", () => {
       const nPendingToDos = 3;
       render(
-        <ToDosContext.Provider value={{ nPendingToDos }}>
+        <ToDosContext.Provider value={{ getToDos: { nPendingToDos } }}>
           <Info />
         </ToDosContext.Provider>
       );
@@ -19,7 +19,7 @@ describe("Info component", () => {
     it("should tell the user that there are no pending tasks", () => {
       const nPendingToDos = 0;
       render(
-        <ToDosContext.Provider value={{ nPendingToDos }}>
+        <ToDosContext.Provider value={{ getToDos: { nPendingToDos } }}>
           <Info />
         </ToDosContext.Provider>
       );

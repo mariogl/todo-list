@@ -11,9 +11,7 @@ import PropTypes from "prop-types";
 import * as yup from "yup";
 import { toDoPropsSchema } from "../schema/todo";
 import { routePaths } from "../router/paths";
-import { useContext } from "react";
-import { ToDosContext } from "../contexts/ToDosContext";
-import { toDosActions } from "../reducers/actions/todos";
+import { useToDosRepository } from "../hooks/useToDosRepository";
 
 const validationSchema = yup.object({
   description: yup
@@ -24,14 +22,14 @@ const validationSchema = yup.object({
 
 export const FormToDo = (props) => {
   const { toDo } = props;
-  const { dispatch } = useContext(ToDosContext);
+  const { addToDo, modifyToDo } = useToDosRepository();
   const history = useHistory();
 
   const submitToDo = ({ description, priority }) => {
     if (toDo) {
-      dispatch(toDosActions.modify({ id: toDo.id, description, priority }));
+      modifyToDo({ id: toDo.id, description, priority });
     } else {
-      dispatch(toDosActions.add({ description, priority }));
+      addToDo({ description, priority });
     }
     history.push(routePaths.list);
   };

@@ -46,7 +46,7 @@ export const ToDo = (props) => {
   return (
     <ListItem className={classes[`priority${priority}`]} component="li" button>
       <ListItemAvatar>
-        <Avatar aria-label="Toggle ToDo" onClick={onToggleToDo}>
+        <Avatar aria-label="toggle ToDo" onClick={onToggleToDo}>
           <DoneIcon />
         </Avatar>
       </ListItemAvatar>
@@ -54,7 +54,7 @@ export const ToDo = (props) => {
         {description}
       </ListItemText>
       <ListItemAvatar>
-        <Avatar onClick={onOpenConfirm}>
+        <Avatar aria-label="remove ToDo" onClick={onOpenConfirm}>
           <DeleteIcon />
         </Avatar>
       </ListItemAvatar>

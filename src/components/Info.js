@@ -3,7 +3,9 @@ import { useContext } from "react";
 import { ToDosContext } from "../contexts/ToDosContext";
 
 export const Info = () => {
-  const { nPendingToDos } = useContext(ToDosContext);
+  const {
+    getToDos: { nPendingToDos },
+  } = useContext(ToDosContext);
   return (
     <Box p={2}>
       <Typography variant="body1">

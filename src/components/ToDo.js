@@ -44,7 +44,12 @@ export const ToDo = (props) => {
     openConfirm(id);
   };
   return (
-    <ListItem className={classes[`priority${priority}`]} component="li" button>
+    <ListItem
+      aria-label="ToDo"
+      className={classes[`priority${priority}`]}
+      component="li"
+      button
+    >
       <ListItemAvatar>
         <Avatar aria-label="toggle ToDo" onClick={onToggleToDo}>
           <DoneIcon />

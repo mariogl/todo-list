@@ -6,7 +6,10 @@ import { Confirm } from "./Confirm";
 import { ToDo } from "./ToDo";
 
 export const ToDosList = () => {
-  const { toDos, dispatch } = useContext(ToDosContext);
+  const {
+    getToDos: { toDos },
+    dispatch,
+  } = useContext(ToDosContext);
   const [openedConfirm, setOpenedConfirm] = useState(false);
   const [idConfirm, setIdConfirm] = useState(null);
   const toggleToDo = useCallback(

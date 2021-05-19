@@ -1,7 +1,7 @@
 import { List } from "@material-ui/core";
 import { useCallback, useContext, useState } from "react";
 import { ToDosContext } from "../contexts/ToDosContext";
-import { toDosActions, toDosActionTypes } from "../reducers/actions/todos";
+import { toDosActions } from "../reducers/actions/todos";
 import { Confirm } from "./Confirm";
 import { ToDo } from "./ToDo";
 

@@ -1,9 +1,24 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { ToDosContext } from "../contexts/ToDosContext";
 import { toDosActions } from "../reducers/actions/todos";
 
+const compareToDosByPriority = (toDo1, toDo2) => {
+  return toDo1.priority > toDo2.priority
+    ? 1
+    : toDo1.priority < toDo2.priority
+    ? -1
+    : 0;
+};
+
 export const useToDosRepository = () => {
-  const { dispatch, setLoading } = useContext(ToDosContext);
+  const { toDos, dispatch, setLoading } = useContext(ToDosContext);
+
+  // Getters
+  const sortedToDos = [...toDos.sort(compareToDosByPriority)];
+  const nPendingToDos = toDos.filter((toDo) => !toDo.done).length;
+  const toDoById = (id) => toDos.find((toDo) => toDo.id === id);
+
+  // Mutations
   const addToDo = (toDo) => {
     setLoading(true);
     dispatch(toDosActions.add(toDo));
@@ -26,6 +41,9 @@ export const useToDosRepository = () => {
   };
 
   return {
+    toDos: sortedToDos,
+    nPendingToDos,
+    toDoById,
     addToDo,
     modifyToDo,
     removeToDo,

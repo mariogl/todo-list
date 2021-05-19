@@ -5,10 +5,9 @@ import { ToDosContext } from "../contexts/ToDosContext";
 
 export const PageEditToDo = () => {
   const { id } = useParams();
-  const { toDos } = useContext(ToDosContext);
-  const toDo = useMemo(
-    () => toDos.find((toDo) => toDo.id === +id),
-    [id, toDos]
-  );
+  const {
+    getToDos: { toDoById },
+  } = useContext(ToDosContext);
+  const toDo = useMemo(() => toDoById(+id), [id, toDoById]);
   return <FormToDo toDo={toDo} />;
 };

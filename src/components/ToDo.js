@@ -12,15 +12,25 @@ import PropTypes from "prop-types";
 import { routePaths } from "../router/paths";
 import { toDoPropsSchema } from "../schema/todo";
 
+const opacity = 0.8;
 const useStyles = makeStyles({
-  priority1: {
-    backgroundColor: "red",
+  colorPriority1: {
+    color: `rgba(255, 0, 0, 1)`,
   },
-  priority2: {
-    backgroundColor: "yellow",
+  colorPriority2: {
+    color: `rgba(255, 165, 0, 1)`,
   },
-  priority3: {
-    backgroundColor: "green",
+  colorPriority3: {
+    color: `rgba(0, 128, 0, 1)`,
+  },
+  bgColorPriority1: {
+    backgroundColor: `rgba(255, 0, 0, ${opacity})`,
+  },
+  bgColorPriority2: {
+    backgroundColor: `rgba(255, 165, 0, ${opacity})`,
+  },
+  bgColorPriority3: {
+    backgroundColor: `rgba(0, 128, 0, ${opacity})`,
   },
   done: {
     textDecoration: "line-through",
@@ -46,12 +56,16 @@ export const ToDo = (props) => {
   return (
     <ListItem
       aria-label="ToDo"
-      className={classes[`priority${priority}`]}
+      className={classes[`colorPriority${priority}`]}
       component="li"
       button
     >
       <ListItemAvatar>
-        <Avatar aria-label="toggle ToDo" onClick={onToggleToDo}>
+        <Avatar
+          className={classes[`bgColorPriority${priority}`]}
+          aria-label="toggle ToDo"
+          onClick={onToggleToDo}
+        >
           <DoneIcon />
         </Avatar>
       </ListItemAvatar>
@@ -59,7 +73,11 @@ export const ToDo = (props) => {
         {description}
       </ListItemText>
       <ListItemAvatar>
-        <Avatar aria-label="remove ToDo" onClick={onOpenConfirm}>
+        <Avatar
+          className={classes[`bgColorPriority${priority}`]}
+          aria-label="remove ToDo"
+          onClick={onOpenConfirm}
+        >
           <DeleteIcon />
         </Avatar>
       </ListItemAvatar>

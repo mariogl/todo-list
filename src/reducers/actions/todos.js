@@ -1,4 +1,5 @@
 export const toDosActionTypes = {
+  load: "LOAD_TODOS",
   toggle: "TOGGLE_TODO",
   add: "ADD_TODO",
   modify: "EDIT_TODO",
@@ -6,6 +7,10 @@ export const toDosActionTypes = {
 };
 
 export const toDosActions = {
+  load: (toDos) => ({
+    type: toDosActionTypes.load,
+    payload: toDos,
+  }),
   toggle: (idToDo) => ({
     type: toDosActionTypes.toggle,
     payload: idToDo,

@@ -1,49 +1,52 @@
 import { useCallback, useContext } from "react";
 import { ToDosContext } from "../contexts/ToDosContext";
 import { toDosActions } from "../reducers/actions/todos";
+import { useFetch } from "./useFetch";
 
-const compareToDosByPriority = (toDo1, toDo2) => {
-  return toDo1.priority > toDo2.priority
-    ? 1
-    : toDo1.priority < toDo2.priority
-    ? -1
-    : 0;
-};
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const useToDosRepository = () => {
-  const { toDos, dispatch, setLoading } = useContext(ToDosContext);
+  const { dispatch, setLoading } = useContext(ToDosContext);
+  const { loading, error, request } = useFetch();
 
-  // Getters
-  const sortedToDos = [...toDos.sort(compareToDosByPriority)];
-  const nPendingToDos = toDos.filter((toDo) => !toDo.done).length;
-  const toDoById = (id) => toDos.find((toDo) => toDo.id === id);
+  // Load data
+  const loadToDos = useCallback(async () => {
+    setLoading(true);
+    const toDos = await request(apiUrl);
+    dispatch(toDosActions.load(toDos));
+    setLoading(false);
+  }, [dispatch, request, setLoading]);
 
   // Mutations
-  const addToDo = (toDo) => {
+  const addToDo = async (toDo) => {
     setLoading(true);
-    dispatch(toDosActions.add(toDo));
+    const newToDo = await request(apiUrl, "POST", toDo);
+    dispatch(toDosActions.add(newToDo));
     setLoading(false);
   };
-  const modifyToDo = (toDo) => {
+  const modifyToDo = async (toDo) => {
     setLoading(true);
-    dispatch(toDosActions.modify(toDo));
+    const updatedToDo = await request(apiUrl + toDo.id, "PUT", toDo);
+    dispatch(toDosActions.modify(updatedToDo));
     setLoading(false);
   };
-  const removeToDo = (idToDo) => {
+  const removeToDo = async (idToDo) => {
     setLoading(true);
-    dispatch(toDosActions.remove(idToDo));
-    setLoading(false);
+    const removed = await request(apiUrl + idToDo, "DELETE", null, true);
+    if (removed.status === 200) {
+      dispatch(toDosActions.remove(idToDo));
+      setLoading(false);
+    }
   };
-  const toggleToDo = (idToDo) => {
+  const toggleToDo = async (toDo) => {
     setLoading(true);
-    dispatch(toDosActions.toggle(idToDo));
+    await request(apiUrl + toDo.id, "PATCH", { done: !toDo.done });
+    dispatch(toDosActions.toggle(toDo.id));
     setLoading(false);
   };
 
   return {
-    toDos: sortedToDos,
-    nPendingToDos,
-    toDoById,
+    loadToDos,
     addToDo,
     modifyToDo,
     removeToDo,

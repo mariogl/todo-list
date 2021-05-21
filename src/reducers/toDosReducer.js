@@ -2,6 +2,8 @@ import { toDosActionTypes } from "./actions/todos";
 
 export const toDosReducer = (toDos, action) => {
   switch (action.type) {
+    case toDosActionTypes.load:
+      return action.payload;
     case toDosActionTypes.add:
       return [
         ...toDos,

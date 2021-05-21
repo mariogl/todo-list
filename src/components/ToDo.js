@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 
 export const ToDo = (props) => {
   const {
+    toDo,
     toDo: { id, description, priority, done },
     openConfirm,
     toggleToDo,
@@ -37,7 +38,7 @@ export const ToDo = (props) => {
   const history = useHistory();
   const goToEditPage = () => history.push(`${routePaths.editToDo}/${id}`);
   const onToggleToDo = () => {
-    toggleToDo(id);
+    toggleToDo(toDo);
   };
   const onOpenConfirm = (e) => {
     e.stopPropagation();

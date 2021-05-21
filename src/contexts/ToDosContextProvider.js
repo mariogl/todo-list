@@ -1,35 +1,31 @@
-import { useCallback, useReducer, useState } from "react";
+import { useMemo, useReducer, useState } from "react";
 import { toDosReducer } from "../reducers/toDosReducer";
 import { ToDosContext } from "./ToDosContext";
 
-const initialTodos = [
-  {
-    id: 1,
-    description: "Call John",
-    priority: 3,
-    done: false,
-  },
-  {
-    id: 2,
-    description: "Call Jane",
-    priority: 1,
-    done: true,
-  },
-  {
-    id: 3,
-    description: "Call mum",
-    priority: 2,
-    done: false,
-  },
-];
+const compareToDosByPriority = (toDo1, toDo2) => {
+  return toDo1.priority > toDo2.priority
+    ? 1
+    : toDo1.priority < toDo2.priority
+    ? -1
+    : 0;
+};
 
 export const ToDosContextProvider = (props) => {
   const { children } = props;
-  const [toDos, dispatch] = useReducer(toDosReducer, initialTodos);
+  const [toDos, dispatch] = useReducer(toDosReducer, []);
   const [loading, setLoading] = useState(false);
 
+  const getToDos = useMemo(
+    () => ({
+      sortedToDos: [...toDos.sort(compareToDosByPriority)],
+      nPendingToDos: toDos.filter((toDo) => !toDo.done).length,
+      toDoById: (id) => toDos.find((toDo) => toDo.id === id),
+    }),
+    [toDos]
+  );
+
   return (
-    <ToDosContext.Provider value={{ toDos, loading, setLoading, dispatch }}>
+    <ToDosContext.Provider value={{ getToDos, loading, setLoading, dispatch }}>
       {children}
     </ToDosContext.Provider>
   );

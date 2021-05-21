@@ -27,9 +27,9 @@ export const FormToDo = (props) => {
 
   const submitToDo = ({ description, priority }) => {
     if (toDo) {
-      modifyToDo({ id: toDo.id, description, priority });
+      modifyToDo({ id: toDo.id, description, priority, done: toDo.done });
     } else {
-      addToDo({ description, priority });
+      addToDo({ description, priority, done: false });
     }
     history.push(routePaths.list);
   };

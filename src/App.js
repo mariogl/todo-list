@@ -1,4 +1,4 @@
-import { Container, CssBaseline } from "@material-ui/core";
+import { Container, CssBaseline, makeStyles } from "@material-ui/core";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -14,14 +14,26 @@ import { PageList } from "./pages/PageList";
 import { PageNotFound } from "./pages/PageNotFound";
 import { routePaths } from "./router/paths";
 
+// ToDo: con clases de MUI
+const useStyles = makeStyles({
+  relativeContainer: {
+    position: "relative",
+  },
+});
+
 function App() {
+  const classes = useStyles();
   return (
     <Router>
       <ToDosThemeProvider>
         <CssBaseline />
         <ToDosContextProvider>
           <Header />
-          <Container maxWidth="sm" disableGutters>
+          <Container
+            className={classes.relativeContainer}
+            maxWidth="sm"
+            disableGutters
+          >
             <Switch>
               <Route path={routePaths.list} exact>
                 <PageList />

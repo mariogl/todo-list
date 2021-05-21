@@ -8,9 +8,9 @@ export const PageList = () => {
   const { loading } = useContext(ToDosContext);
   return (
     <>
+      {!loading && <AddAction />}
       <Info />
       <ToDosList />
-      {!loading && <AddAction />}
     </>
   );
 };

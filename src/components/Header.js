@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
     },
   },
+  header: {
+    zIndex: 0,
+  },
 }));
 
 export const Header = () => {
@@ -35,7 +38,7 @@ export const Header = () => {
     history.push(routePaths.list);
   };
   return (
-    <AppBar color="secondary" position="sticky">
+    <AppBar color="secondary" position="sticky" className={classes.header}>
       <Toolbar disableGutters>
         <Container maxWidth="sm">
           <Box

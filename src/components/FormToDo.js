@@ -60,6 +60,7 @@ export const FormToDo = (props) => {
               label="What do you need to do?"
               value={formik.values.description}
               fullWidth
+              autoFocus
               required
               onChange={formik.handleChange}
               error={formik.touched.description && !!formik.errors.description}

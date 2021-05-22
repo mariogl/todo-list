@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext } from "react";
 import { ToDosContext } from "../contexts/ToDosContext";
 import { toDosActions } from "../reducers/actions/todos";
 import { useFetch } from "./useFetch";
@@ -7,53 +7,45 @@ const apiUrl = process.env.REACT_APP_API_URL;
 
 export const useToDosRepository = () => {
   const { request } = useFetch();
-  const [loading, setLoading] = useState(false);
-  const { getToDos, dispatch } = useContext(ToDosContext);
-
-  // Set loading => do things => unset loading
-  const withLoading = async (cb) => {
-    setLoading(true);
-    await cb();
-    setLoading(false);
-  };
+  const { getToDos, dispatch, loading, setLoading } = useContext(ToDosContext);
 
   // Load data from API
-  const loadToDos = useCallback(() => {
-    withLoading(async () => {
-      const toDos = await request(apiUrl);
-      dispatch(toDosActions.load(toDos));
-    });
-  }, [dispatch, request]);
+  const loadToDos = useCallback(async () => {
+    setLoading(true);
+    const toDos = await request(apiUrl);
+    dispatch(toDosActions.load(toDos));
+    setLoading(false);
+  }, [dispatch, request, setLoading]);
 
   // Mutations to API
   const addToDo = async (toDo) => {
-    await withLoading(async () => {
-      const newToDo = await request(apiUrl, "POST", toDo);
-      dispatch(toDosActions.add(newToDo));
-    });
+    setLoading(true);
+    const newToDo = await request(apiUrl, "POST", toDo);
+    dispatch(toDosActions.add(newToDo));
+    setLoading(false);
   };
 
   const modifyToDo = async (toDo) => {
-    await withLoading(async () => {
-      const updatedToDo = await request(apiUrl + toDo.id, "PUT", toDo);
-      dispatch(toDosActions.modify(updatedToDo));
-    });
+    setLoading(true);
+    const updatedToDo = await request(apiUrl + toDo.id, "PUT", toDo);
+    dispatch(toDosActions.modify(updatedToDo));
+    setLoading(false);
   };
 
   const removeToDo = async (idToDo) => {
-    await withLoading(async () => {
-      const removed = await request(apiUrl + idToDo, "DELETE", null, true);
-      if (removed.status === 200) {
-        dispatch(toDosActions.remove(idToDo));
-      }
-    });
+    setLoading(true);
+    const removed = await request(apiUrl + idToDo, "DELETE", null, true);
+    if (removed.status === 200) {
+      dispatch(toDosActions.remove(idToDo));
+    }
+    setLoading(false);
   };
 
   const toggleToDo = async (toDo) => {
-    await withLoading(async () => {
-      await request(apiUrl + toDo.id, "PATCH", { done: !toDo.done });
-      dispatch(toDosActions.toggle(toDo.id));
-    });
+    setLoading(true);
+    await request(apiUrl + toDo.id, "PATCH", { done: !toDo.done });
+    dispatch(toDosActions.toggle(toDo.id));
+    setLoading(false);
   };
 
   return {

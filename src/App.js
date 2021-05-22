@@ -6,6 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { Header } from "./components/Header";
+import { Loading } from "./components/Loading";
 import { ToDosContextProvider } from "./contexts/ToDosContextProvider";
 import { ToDosThemeProvider } from "./contexts/ToDosThemeProvider";
 import { PageCreateToDo } from "./pages/PageCreateToDo";
@@ -52,6 +53,7 @@ function App() {
               </Route>
             </Switch>
           </Container>
+          <Loading />
         </ToDosContextProvider>
       </ToDosThemeProvider>
     </Router>

@@ -25,11 +25,11 @@ export const FormToDo = (props) => {
   const { addToDo, modifyToDo } = useToDosRepository();
   const history = useHistory();
 
-  const submitToDo = ({ description, priority }) => {
+  const submitToDo = async ({ description, priority }) => {
     if (toDo) {
-      modifyToDo({ id: toDo.id, description, priority, done: toDo.done });
+      await modifyToDo({ id: toDo.id, description, priority, done: toDo.done });
     } else {
-      addToDo({ description, priority, done: false });
+      await addToDo({ description, priority, done: false });
     }
     history.push(routePaths.list);
   };

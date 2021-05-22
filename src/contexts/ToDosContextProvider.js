@@ -1,4 +1,4 @@
-import { useMemo, useReducer, useState } from "react";
+import { useMemo, useReducer } from "react";
 import { toDosReducer } from "../reducers/toDosReducer";
 import { ToDosContext } from "./ToDosContext";
 
@@ -13,8 +13,8 @@ const compareToDosByPriority = (toDo1, toDo2) => {
 export const ToDosContextProvider = (props) => {
   const { children } = props;
   const [toDos, dispatch] = useReducer(toDosReducer, []);
-  const [loading, setLoading] = useState(false);
 
+  // Getter object with helpers
   const getToDos = useMemo(
     () => ({
       sortedToDos: [...toDos.sort(compareToDosByPriority)],
@@ -25,7 +25,7 @@ export const ToDosContextProvider = (props) => {
   );
 
   return (
-    <ToDosContext.Provider value={{ getToDos, loading, setLoading, dispatch }}>
+    <ToDosContext.Provider value={{ getToDos, dispatch }}>
       {children}
     </ToDosContext.Provider>
   );

@@ -1,13 +1,11 @@
 import { List } from "@material-ui/core";
-import { useCallback, useContext, useEffect, useState } from "react";
-import { ToDosContext } from "../contexts/ToDosContext";
+import { useCallback, useState } from "react";
 import { useToDosRepository } from "../hooks/useToDosRepository";
 import { Confirm } from "./Confirm";
 import { ToDo } from "./ToDo";
 
 export const ToDosList = () => {
-  const { loadToDos, removeToDo, toggleToDo } = useToDosRepository();
-  const { getToDos } = useContext(ToDosContext);
+  const { getToDos, toggleToDo, removeToDo } = useToDosRepository();
   const [openedConfirm, setOpenedConfirm] = useState(false);
   const [idConfirm, setIdConfirm] = useState(null);
   const openConfirm = useCallback((id) => {
@@ -22,9 +20,6 @@ export const ToDosList = () => {
     removeToDo(idConfirm);
     closeConfirm();
   };
-  useEffect(() => {
-    loadToDos();
-  }, [loadToDos]);
   return (
     <>
       <List>

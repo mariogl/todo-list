@@ -17,14 +17,13 @@ export const ToDosContextProvider = (props) => {
   const [toDos, dispatch] = useReducer(toDosReducer, []);
 
   // Getter object with helpers
-  const getToDos = useMemo(
-    () => ({
+  const getToDos = useMemo(() => {
+    return {
       sortedToDos: [...toDos.sort(compareToDosByPriority)],
       nPendingToDos: toDos.filter((toDo) => !toDo.done).length,
       toDoById: (id) => toDos.find((toDo) => toDo.id === id),
-    }),
-    [toDos]
-  );
+    };
+  }, [toDos]);
 
   return (
     <ToDosContext.Provider

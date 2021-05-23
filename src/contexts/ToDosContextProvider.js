@@ -13,6 +13,7 @@ const compareToDosByPriority = (toDo1, toDo2) => {
 export const ToDosContextProvider = (props) => {
   const { children } = props;
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [toDos, dispatch] = useReducer(toDosReducer, []);
 
   // Getter object with helpers
@@ -26,7 +27,9 @@ export const ToDosContextProvider = (props) => {
   );
 
   return (
-    <ToDosContext.Provider value={{ getToDos, dispatch, loading, setLoading }}>
+    <ToDosContext.Provider
+      value={{ getToDos, dispatch, loading, setLoading, error, setError }}
+    >
       {children}
     </ToDosContext.Provider>
   );

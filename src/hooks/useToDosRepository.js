@@ -13,7 +13,9 @@ export const useToDosRepository = () => {
   const loadToDos = useCallback(async () => {
     setLoading(true);
     const toDos = await request(apiUrl);
-    dispatch(toDosActions.load(toDos));
+    if (typeof toDos !== "undefined") {
+      dispatch(toDosActions.load(toDos));
+    }
     setLoading(false);
   }, [dispatch, request, setLoading]);
 

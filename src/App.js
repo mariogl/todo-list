@@ -5,6 +5,7 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
+import { ErrorDialog } from "./components/ErrorDialog";
 import { Header } from "./components/Header";
 import { Loading } from "./components/Loading";
 import { ToDosContextProvider } from "./contexts/ToDosContextProvider";
@@ -54,6 +55,7 @@ function App() {
             </Switch>
           </Container>
           <Loading />
+          <ErrorDialog />
         </ToDosContextProvider>
       </ToDosThemeProvider>
     </Router>

@@ -40,6 +40,7 @@ export const FormToDo = (props) => {
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues,
     validationSchema,
     onSubmit: submitToDo,

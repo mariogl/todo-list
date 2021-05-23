@@ -1,21 +1,39 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { ToDosContext } from "../contexts/ToDosContext";
+import { useToken } from "./useToken";
 
 export const useFetch = () => {
   const { error, setError } = useContext(ToDosContext);
+  const { getToken } = useToken();
+  const [token, setToken] = useState(null);
+  useEffect(() => {
+    setToken(getToken());
+  }, [getToken]);
+
   const request = useCallback(
-    async (url, method = "GET", datos, withStatus = false) => {
+    async (url, method = "GET", data, auth = true, withStatus = false) => {
       try {
+        if (auth && !token) {
+          return;
+        }
         let options = {
           method,
+          headers: {},
         };
-        if (datos) {
+        if (data) {
           options = {
             ...options,
             headers: {
+              ...options.headers,
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(datos),
+            body: JSON.stringify(data),
+          };
+        }
+        if (auth && token) {
+          options.headers = {
+            ...options.headers,
+            Authorization: "Bearer " + token,
           };
         }
         const respAPI = await fetch(url, options);
@@ -25,7 +43,7 @@ export const useFetch = () => {
         setError(true);
       }
     },
-    [setError]
+    [setError, token]
   );
   return { error, request };
 };

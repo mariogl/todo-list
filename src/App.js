@@ -8,6 +8,7 @@ import {
 import { ErrorDialog } from "./components/ErrorDialog";
 import { Header } from "./components/Header";
 import { Loading } from "./components/Loading";
+import { AuthContextProvider } from "./contexts/AuthContextProvider";
 import { ToDosContextProvider } from "./contexts/ToDosContextProvider";
 import { ToDosThemeProvider } from "./contexts/ToDosThemeProvider";
 import { PageCreateToDo } from "./pages/PageCreateToDo";
@@ -25,37 +26,40 @@ const useStyles = makeStyles({
 
 function App() {
   const classes = useStyles();
+
   return (
     <Router>
       <ToDosThemeProvider>
         <CssBaseline />
         <ToDosContextProvider>
-          <Header />
-          <Container
-            className={classes.relativeContainer}
-            maxWidth="sm"
-            disableGutters
-          >
-            <Switch>
-              <Route path={routePaths.list} exact>
-                <PageList />
-              </Route>
-              <Route path={routePaths.createToDo} exact>
-                <PageCreateToDo />
-              </Route>
-              <Route path={`${routePaths.editToDo}/:id`} exact>
-                <PageEditToDo />
-              </Route>
-              <Route path="/" exact>
-                <Redirect to={routePaths.list} />
-              </Route>
-              <Route>
-                <PageNotFound />
-              </Route>
-            </Switch>
-          </Container>
-          <Loading />
-          <ErrorDialog />
+          <AuthContextProvider>
+            <Header />
+            <Container
+              className={classes.relativeContainer}
+              maxWidth="sm"
+              disableGutters
+            >
+              <Switch>
+                <Route path={routePaths.list} exact>
+                  <PageList />
+                </Route>
+                <Route path={routePaths.createToDo} exact>
+                  <PageCreateToDo />
+                </Route>
+                <Route path={`${routePaths.editToDo}/:id`} exact>
+                  <PageEditToDo />
+                </Route>
+                <Route path="/" exact>
+                  <Redirect to={routePaths.list} />
+                </Route>
+                <Route>
+                  <PageNotFound />
+                </Route>
+              </Switch>
+            </Container>
+            <Loading />
+            <ErrorDialog />
+          </AuthContextProvider>
         </ToDosContextProvider>
       </ToDosThemeProvider>
     </Router>

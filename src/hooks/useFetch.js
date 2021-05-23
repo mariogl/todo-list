@@ -1,11 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext } from "react";
+import { ToDosContext } from "../contexts/ToDosContext";
 
-export const useFetch = (datosIniciales) => {
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+export const useFetch = () => {
+  const { error, setError } = useContext(ToDosContext);
   const request = useCallback(
     async (url, method = "GET", datos, withStatus = false) => {
-      setLoading(true);
       try {
         let options = {
           method,
@@ -22,12 +21,11 @@ export const useFetch = (datosIniciales) => {
         const respAPI = await fetch(url, options);
         const dataAPI = await respAPI.json();
         return withStatus ? { dataAPI, status: respAPI.status } : dataAPI;
-      } catch (err) {
-        setError(err);
+      } catch {
+        setError(true);
       }
-      setLoading(false);
     },
-    []
+    [setError]
   );
-  return { error, loading, request };
+  return { error, request };
 };

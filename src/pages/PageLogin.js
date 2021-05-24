@@ -1,3 +1,4 @@
+import { Box, Button, Typography } from "@material-ui/core";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { useFetch } from "../hooks/useFetch";
@@ -25,6 +26,24 @@ export const PageLogin = () => {
       setUserLoggedIn(true);
     }
   };
-
-  return <button onClick={doLogin}>Login</button>;
+  return (
+    <Box
+      height="100vh"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Typography gutterBottom>👋</Typography>
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        type="submit"
+        onClick={doLogin}
+      >
+        Login
+      </Button>
+    </Box>
+  );
 };

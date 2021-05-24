@@ -17,7 +17,6 @@ import { PageList } from "./pages/PageList";
 import { PageNotFound } from "./pages/PageNotFound";
 import { routePaths } from "./router/paths";
 
-// ToDo: con clases de MUI
 const useStyles = makeStyles({
   relativeContainer: {
     position: "relative",

@@ -8,6 +8,7 @@ export const useFetch = () => {
   const [token, setToken] = useState(null);
   useEffect(() => {
     setToken(getToken());
+    sdf;
   }, [getToken]);
 
   const request = useCallback(
